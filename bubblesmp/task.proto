@@ -1,0 +1,84 @@
+//
+// Copyright (c) 2015, Adnan Ademovic
+// All rights reserved.
+//
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions are met:
+//
+// * Redistributions of source code must retain the above copyright notice, this
+//   list of conditions and the following disclaimer.
+//
+// * Redistributions in binary form must reproduce the above copyright notice,
+//   this list of conditions and the following disclaimer in the documentation
+//   and/or other materials provided with the distribution.
+//
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+// DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+// FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+// DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+// SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+// CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+// OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+//
+
+syntax = "proto2";
+
+import "bubblesmp/index.proto";
+import "bubblesmp/environment/environment.proto";
+import "bubblesmp/generators/generator.proto";
+
+package com.ademovic.bubblesmp;
+
+message Point {
+  repeated double q = 1;
+}
+
+message TreeConfig {
+  enum Type {
+    BUBBLE = 0;
+    CLASSIC = 1;
+    GREEDY_BUBBLE = 2;
+    GREEDY_CLASSIC = 3;
+    CRAWLING_BUBBLE = 4;
+    BERTRAM_BUBBLE = 5;
+    RBT = 6;
+    GRBT = 7;
+  }
+  optional Type type = 1 [default = BUBBLE];
+
+  // For Bubble tree
+  optional uint32 bubbles_per_extend = 8 [default = 25];
+  optional double min_bubble_reach = 9 [default = 2];
+  optional double max_bubble_gap = 10 [default = 0.4];
+  optional double bubble_extend = 11 [default = 96.0];
+  optional bool use_extended_bubbles = 12 [default = true];
+
+  // For Greedy Bubble tree
+  optional uint32 max_bubbles_per_branch = 2 [default = 50];
+  optional uint32 max_binary_search_depth = 7 [default = 4];
+  optional double min_move_length = 3 [default = 0.9];
+
+  // For Classic tree
+  optional double step_length = 4 [default = 10.0];
+  optional uint32 checks_per_step = 5 [default = 25];
+
+  // For Bertram Bubble tree
+  optional double s_min = 13 [default = 16.0];
+  optional uint32 checks_on_s_min = 14 [default = 40];
+
+  // For Bur Tree
+  optional uint32 bur_size = 15 [default = 7];
+  optional uint32 bur_threshold = 16 [default = 500];
+}
+
+message TaskConfig {
+  optional environment.EnvironmentConfig environment = 1;
+  optional generators.GeneratorSettings generator = 2;
+  optional IndexSettings index = 3;
+  optional TreeConfig tree = 4;
+  optional Point source = 5;
+  optional Point destination = 6;
+}

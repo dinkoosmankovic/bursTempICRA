@@ -1,0 +1,80 @@
+//
+// Copyright (c) 2015, Adnan Ademovic
+// All rights reserved.
+//
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions are met:
+//
+// * Redistributions of source code must retain the above copyright notice, this
+//   list of conditions and the following disclaimer.
+//
+// * Redistributions in binary form must reproduce the above copyright notice,
+//   this list of conditions and the following disclaimer in the documentation
+//   and/or other materials provided with the distribution.
+//
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+// DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+// FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+// DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+// SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+// CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+// OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+//
+
+syntax = "proto2";
+
+package com.ademovic.bubblesmp;
+
+message IndexParams {
+  enum CentersInit {
+    RANDOM = 0;
+    GONZALES = 1;
+    KMEANSPP = 2;
+  }
+
+  optional int32 trees = 1 [default = 4];
+  optional int32 branching = 2 [default = 32];
+  optional int32 iterations = 3 [default = 11];
+  optional CentersInit centers_init = 4 [default = RANDOM];
+  optional float cb_index = 5 [default = 0.2];
+  optional int32 leaf_max_size = 6 [default = 10];
+
+  // Lsh
+  optional uint32 table_number = 7 [default = 12];
+  optional uint32 key_size = 8 [default = 20];
+  optional uint32 multi_probe_level = 9 [default = 2];  // 0 for standard Lsh
+
+  // Autotuned
+  optional float target_precision = 10 [default = 0.9];
+  optional float build_weight = 11 [default = 0.01];
+  optional float memory_weight = 12 [default = 0.0];
+  optional float sample_fraction = 13 [default = 0.1];
+}
+
+message SearchParams {
+  optional int32 checks = 1 [default = 32];
+  optional float eps = 2 [default = 0];
+  optional bool sorted = 3 [default = true];
+  optional int32 max_neighbors = 4 [default = -1];
+  optional bool use_heap = 5;
+  optional int32 cores = 6 [default = 0];
+  optional bool matrices_in_gpu_ram = 7;
+}
+
+message IndexSettings {
+  enum Type {
+    LINEAR = 0;
+    KD_TREE = 1;
+    KD_TREE_SINGLE = 2;
+    K_MEANS = 3;
+    COMPOSITE = 4;
+    LSH = 5;
+    AUTOTUNED = 6;
+  }
+  optional Type type = 1;
+  optional IndexParams index_params = 2;
+  optional SearchParams search_params = 3;
+}
