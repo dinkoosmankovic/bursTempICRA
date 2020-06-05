@@ -1,0 +1,47 @@
+
+environment {
+  robot_filename: "../generic-8-link/robot/solid.robot"
+  environment_filename: "../generic-8-link/environment/obstacles_trivial.obj"
+  max_underestimate: 5.0
+}
+generator {
+  seed: 37200
+}
+index {
+  type: KD_TREE
+  index_params {
+    trees: 8
+  }
+  search_params {
+    checks: 128
+    use_heap: false
+  }
+}
+tree {
+  type: GRBT
+  use_extended_bubbles: true
+}
+source {
+
+  q:  10
+  q:  10
+  q:  10
+  q:  10
+  q:  10
+  q:  10
+  q:  10
+  q:  10
+
+}
+destination {
+
+  q: -10
+  q: -10
+  q: -10
+  q: -10
+  q: -10
+  q: -10
+  q: -10
+  q: -10
+
+}

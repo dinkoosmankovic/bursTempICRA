@@ -1,0 +1,35 @@
+
+environment {
+  robot_filename: "../generic-2-link/robot/solid.robot"
+  environment_filename: "../generic-2-link/environment/obstacles_hardsingle.obj"
+  max_underestimate: 5.0
+}
+generator {
+  seed: 4400
+}
+index {
+  type: KD_TREE
+  index_params {
+    trees: 8
+  }
+  search_params {
+    checks: 128
+    use_heap: false
+  }
+}
+tree {
+  type: GRBT
+  use_extended_bubbles: true
+}
+source {
+
+  q: 115
+  q:  57
+  
+}
+destination {
+
+  q: 65
+  q: -57
+  
+}

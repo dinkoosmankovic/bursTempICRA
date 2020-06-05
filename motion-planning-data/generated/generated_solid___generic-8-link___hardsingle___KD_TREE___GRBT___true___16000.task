@@ -1,0 +1,47 @@
+
+environment {
+  robot_filename: "../generic-8-link/robot/solid.robot"
+  environment_filename: "../generic-8-link/environment/obstacles_hardsingle.obj"
+  max_underestimate: 5.0
+}
+generator {
+  seed: 16000
+}
+index {
+  type: KD_TREE
+  index_params {
+    trees: 8
+  }
+  search_params {
+    checks: 128
+    use_heap: false
+  }
+}
+tree {
+  type: GRBT
+  use_extended_bubbles: true
+}
+source {
+
+  q:   95.729578
+  q:   14.323945
+  q:   14.323945
+  q:  14.323945
+  q:  14.323945
+  q:  14.323945
+  q:  14.323945
+  q:  14.323945
+
+}
+destination {
+
+  q:   84.270422
+  q:   -14.323945
+  q:   -14.323945
+  q:   -14.323945
+  q:   -14.323945
+  q:   -14.323945
+  q:   -14.323945
+  q:   -14.323945
+
+}

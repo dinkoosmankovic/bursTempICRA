@@ -1,0 +1,47 @@
+
+environment {
+  robot_filename: "../generic-8-link/robot/solid.robot"
+  environment_filename: "../generic-8-link/environment/obstacles_medium.obj"
+  max_underestimate: 5.0
+}
+generator {
+  seed: 32000
+}
+index {
+  type: KD_TREE
+  index_params {
+    trees: 8
+  }
+  search_params {
+    checks: 128
+    use_heap: false
+  }
+}
+tree {
+  type: RBT
+  use_extended_bubbles: true
+}
+source {
+
+  q:   0
+  q:   0
+  q:   0
+  q:  90
+  q:   0
+  q:   0
+  q:  90
+  q:   0
+
+}
+destination {
+
+  q:   0
+  q:   0
+  q:   0
+  q: -90
+  q:   0
+  q:   0
+  q: -90
+  q:   0
+
+}

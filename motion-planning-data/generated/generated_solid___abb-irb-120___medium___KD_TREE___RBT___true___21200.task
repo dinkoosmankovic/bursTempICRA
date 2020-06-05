@@ -1,0 +1,43 @@
+
+environment {
+  robot_filename: "../abb-irb-120/robot/solid.robot"
+  environment_filename: "../abb-irb-120/environment/obstacles_medium.obj"
+  max_underestimate: 5.0
+}
+generator {
+  seed: 21200
+}
+index {
+  type: KD_TREE
+  index_params {
+    trees: 8
+  }
+  search_params {
+    checks: 128
+    use_heap: false
+  }
+}
+tree {
+  type: RBT
+  use_extended_bubbles: true
+}
+source {
+
+  q: -90
+  q:  50
+  q: -50
+  q:   0
+  q:   0
+  q:   0
+
+}
+destination {
+
+  q:   0
+  q:  90
+  q: -90
+  q:  -9
+  q:  -9
+  q:  -9
+
+}
